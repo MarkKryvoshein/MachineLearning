@@ -14,6 +14,7 @@ class Taxi:
         self.x_direction = 0
         self.y_direction = 0
 
+
     def move(self, keys):
         self.x_direction = 0
         self.y_direction = 0
@@ -33,6 +34,28 @@ class Taxi:
 
         self.player_rect.x += self.player_speed * self.x_direction
         self.player_rect.y += self.player_speed * self.y_direction
+
+    def auto_move(self, action):
+        self.x_direction = 0
+        self.y_direction = 0
+
+        if action==0:
+            self.y_direction = -1
+            self.player_view = "rear"
+        elif action==1:
+            self.y_direction = 1
+            self.player_view = "front"
+        elif action==2:
+            self.x_direction = 1
+            self.player_view = "right"
+        elif action==3:
+            self.x_direction = -1
+            self.player_view = "left"
+
+        new_x = self.player_rect.x + self.player_rect.width * self.x_direction
+        new_y = self.player_rect.y + self.player_rect.height * self.y_direction
+
+        return new_x, new_y
 
     def draw(self, surface):
         surface.blit(self.obj_condition[self.player_view], self.player_rect)
